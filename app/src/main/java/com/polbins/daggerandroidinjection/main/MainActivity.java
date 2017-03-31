@@ -6,20 +6,47 @@ import android.widget.TextView;
 
 import com.polbins.daggerandroidinjection.R;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+import javax.inject.Inject;
 
-    private TextView textView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import dagger.android.AndroidInjection;
+
+public class MainActivity extends AppCompatActivity implements MainContract.View {
+    @BindView(R.id.textView)
+    TextView textView;
+
+    @Inject
+    MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.textView);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.start();
     }
 
     @Override
     public void updateView(int count) {
         textView.setText(String.valueOf(count));
+    }
+
+    @OnClick(R.id.incrementButton)
+    void onIncrementClick() {
+        presenter.incrementButtonClick();
+    }
+
+    @OnClick(R.id.resetButton)
+    void onResetClick() {
+        presenter.resetButtonClick();
     }
 
 }

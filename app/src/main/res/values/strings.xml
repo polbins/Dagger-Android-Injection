@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Dagger Android Injection</string>
     <string name="increment">Increment</string>
+    <string name="reset">Reset</string>
 </resources>

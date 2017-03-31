@@ -5,6 +5,7 @@ import android.app.Application;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
 /**
  * Created by polbins on 31/3/17.
@@ -12,10 +13,14 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
-        ApplicationModule.class
+        AndroidInjectionModule.class,
+        ApplicationModule.class,
+        ActivityModule.class
 })
 public interface ApplicationComponent {
 
     Application application();
+
+    void inject(MyApplication application);
 
 }
